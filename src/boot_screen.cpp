@@ -551,9 +551,12 @@ static const uint8_t kGray4StoredBase[4] = {3, 1, 2, 0};
 static const uint8_t kGray4StoredV2[4]  = {3, 2, 1, 0};
 
 static bool bootGray4PanelUsesLutV2(uint16_t panelIc) {
-    // u8Colors_4gray_v2 panels (mirrors _GRAY4_CODES_BY_PANEL in display_palettes.py):
-    // 0x0028 EP426_800x480_4GRAY and 0x0048 EP368_792x528_4GRAY.
-    return panelIc == 0x0028 || panelIc == 0x0048;
+    // Panels whose mid-gray codes are swapped vs u8Colors_4gray (mirrors
+    // _GRAY4_CODES_BY_PANEL in display_palettes.py): 0x0028 EP426_800x480_4GRAY and
+    // 0x0048 EP368_792x528_4GRAY (u8Colors_4gray_v2), plus 0x0015 EP75_800x480_4GRAY,
+    // whose register LUTs (epd75_old_gray_init) exchange the BW/WB mid-gray waveforms
+    // relative to EP75_800x480_4GRAY_V2 even though bb_epaper tags it u8Colors_4gray.
+    return panelIc == 0x0015 || panelIc == 0x0028 || panelIc == 0x0048;
 }
 
 static void bootGray4FillSwatchCodes(uint16_t panelIc, uint8_t out[4]) {
