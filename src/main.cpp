@@ -1248,6 +1248,7 @@ void enterDeepSleep(bool force, uint16_t overrideSleepSeconds) {
     od_log_flush(); // drain UART/Serial prior to deep sleep
     delay(100); // Brief delay to ensure serial output is sent
     powerLatchHoldForSleep();
+    touchPrepareForDeepSleep();
     nm420HoldForSleep();
     esp_deep_sleep_start();
 }
