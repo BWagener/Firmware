@@ -538,7 +538,7 @@ for _tag, _block in BLOCKS.items():
 # sets only trigger a warning (not an error) on encode - the firmware may define values
 # this tool doesn't know about yet.
 VALID_ENUMS: dict[tuple[str, str], set[int]] = {
-    ("sensors", "sensor_type"): {1, 2, 3, 4, 5},  # SENSOR_TYPE_TEMPERATURE..BQ27220
+    ("sensors", "sensor_type"): {1, 2, 3, 4, 5, 6, 7},  # SENSOR_TYPE_TEMPERATURE..AHT20
     ("displays", "color_scheme"): {0, 1, 2, 3, 4, 5, 6, 7, 8, 100, 101, 102},  # COLOR_SCHEME_MONO..BWGBRY_SPLIT, RGB565/RGB888/RGB16BPC
     ("touch_controllers", "touch_ic_type"): {0, 1},  # TOUCH_IC_NONE, TOUCH_IC_GT911
     ("power_option", "capacity_estimator"): {1, 2, 3, 4, 5},  # CAPACITY_EST_LI_ION..SEEED_LI_ION
@@ -1051,7 +1051,7 @@ def cmd_read_msd(args: argparse.Namespace) -> int:
     voltage = info["battery_voltage_v"]
     print(f"Battery voltage: {f'{voltage:.2f} V' if voltage is not None else 'unknown (raw=0 - unconfigured or not yet sampled)'}")
     print(f"Chip temperature: {info['temperature_c']:.1f} C")
-    print(f"Reboot flag: {info['reboot_flag']}")
+    print(f"State changed (reboot/config): {info['reboot_flag']}")
     print(f"Connection requested: {info['connection_requested']}")
     print(f"Loop counter: {info['loop_counter']}")
     print(f"Dynamic data (bytes 2-12): {info['dynamic_data_hex']}")
